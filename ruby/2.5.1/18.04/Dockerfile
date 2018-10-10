@@ -40,5 +40,6 @@ RUN apt-get -qq update \
 
 ENV RUBY_BIN /usr/local/ruby/$RUBY_VERSION/bin
 ENV PATH $RUBY_BIN:$PATH
+EXPOSE 3000 4567
 
 CMD $RUBY_BIN/pry
