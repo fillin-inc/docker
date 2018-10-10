@@ -4,6 +4,11 @@ LABEL maintainer="fillin Inc."
 ARG RUBY_VERSION=2.5.1
 ARG RUBY_CHECKSUM=dac81822325b79c3ba9532b048c2123357d3310b2b40024202f360251d9829b1
 
+ENV GEM_HOME /usr/local/bundle
+ENV BUNDLE_PATH="$GEM_HOME" \
+	BUNDLE_SILENCE_ROOT_WARNING=1 \
+	BUNDLE_APP_CONFIG="$GEM_HOME"
+
 ENV WORK_DIR /usr/local/app
 WORKDIR $WORK_DIR
 VOLUME $WORK_DIR
@@ -30,6 +35,7 @@ RUN apt-get -qq update \
       && tar xvzf /tmp/ruby-$RUBY_VERSION.tar.gz -C /tmp \
       && cd /tmp/ruby-$RUBY_VERSION/; ./configure --prefix=/usr/local/ruby/$RUBY_VERSION && make && make test && make install \
       && echo 'gem: --no-ri --no-rdoc' > ~/.gemrc \
+      && mkdir -p $GEM_HOME && chmod 777 $GEM_HOME \
       && /usr/local/ruby/$RUBY_VERSION/bin/gem install bundler pry pry-byebug pry-doc rake --no-ri --no-rdoc \
       && apt-get remove -y --auto-remove curl build-essential \
       # for nokogiri
@@ -39,7 +45,7 @@ RUN apt-get -qq update \
       && rm -rf /root/.gem
 
 ENV RUBY_BIN /usr/local/ruby/$RUBY_VERSION/bin
-ENV PATH $RUBY_BIN:$PATH
+ENV PATH $RUBY_BIN:$BUNDLE_PATH/bin:$PATH
 EXPOSE 3000 4567
 
-CMD $RUBY_BIN/pry
+CMD $BUNDLE_PATH/bin/pry
