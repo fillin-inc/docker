@@ -35,7 +35,7 @@ RUN apt-get -qq update \
       && tar xvzf /tmp/ruby-$RUBY_VERSION.tar.gz -C /tmp \
       && cd /tmp/ruby-$RUBY_VERSION/; ./configure --prefix=/usr/local/ruby/$RUBY_VERSION && make && make test && make install \
       && echo 'gem: --no-ri --no-rdoc' > ~/.gemrc \
-      && mkdir -p $GEM_HOME && chmod 777 $GEM_HOME \
+      && mkdir -p $GEM_HOME && chmod 755 $GEM_HOME \
       && /usr/local/ruby/$RUBY_VERSION/bin/gem install bundler pry pry-byebug pry-doc rake --no-ri --no-rdoc \
       && apt-get remove -y --auto-remove curl build-essential \
       # for nokogiri
@@ -46,6 +46,6 @@ RUN apt-get -qq update \
 
 ENV RUBY_BIN /usr/local/ruby/$RUBY_VERSION/bin
 ENV PATH $RUBY_BIN:$BUNDLE_PATH/bin:$PATH
-EXPOSE 3000 4567
+EXPOSE 3000 4567 8080
 
 CMD $BUNDLE_PATH/bin/pry
