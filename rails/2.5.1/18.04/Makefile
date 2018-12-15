@@ -1,0 +1,5 @@
+build:
+	docker build -t fillininc/rails:2.5.1-18.04 .
+
+push:
+	docker push fillininc/rails:2.5.1-18.04
