@@ -11,6 +11,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -qq update \
       && apt-get install -y curl wget zip build-essential \
       && apt-get install -y php7.2 \
         php7.2-cli \
+        php7.2-bcmath \
         php7.2-curl \
         php7.2-dev \
         php7.2-gd \
@@ -51,4 +52,4 @@ RUN mkdir -p /run/php \
       && rm -rf /tmp/* \
       && rm -rf /var/lib/apt/lists/*
 
-CMD ["/usr/sbin/php-fpm7.2", "-F"]
+CMD ["/usr/bin/php", "-a"]
