@@ -2,6 +2,7 @@ FROM fillininc/ruby:2.6.5-18.04
 LABEL maintainer="fillin Inc."
 
 ENV NODE_MAJOR_VERSION 12
+ENV RAILS_PORT 3000
 ENV RAILS_IP 0.0.0.0
 
 # Install ChromeDriver
@@ -36,6 +37,6 @@ RUN chmod +x /root/startup.sh \
   && rm -rf /var/lib/apt/lists/* \
   && rm -rf /tmp/*
 
-EXPOSE 3000 8080
+EXPOSE ${RAILS_PORT}
 
 CMD '/root/startup.sh'

@@ -25,4 +25,12 @@ if [ -f "tmp/pids/puma.pid" ]; then
   rm -f tmp/pids/puma.pid
 fi
 
-${WORK_DIR}/bin/rails server -b ${RAILS_IP}
+cd ${WORK_DIR}
+
+if [ -e "bin/rails" ]; then
+  bin/rails db:setup
+  bin/rails server -p ${RAILS_PORT} -b ${RAILS_IP}
+else
+  echo "bin/rails が存在しないため bash を起動します"
+  bash
+fi
