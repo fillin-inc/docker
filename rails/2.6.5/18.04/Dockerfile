@@ -2,6 +2,7 @@ FROM fillininc/ruby:2.6.5-18.04
 LABEL maintainer="fillin Inc."
 
 ENV NODE_MAJOR_VERSION 12
+ENV RAILS_IP 0.0.0.0
 
 # Install ChromeDriver
 RUN apt-get update -qq \
@@ -29,11 +30,12 @@ RUN curl -sL https://deb.nodesource.com/setup_${NODE_MAJOR_VERSION}.x | bash - \
       && apt-get install -y nodejs yarn \
       && apt-get install -y gcc g++ make # development tools to build native addons
 
-COPY entrypoint.sh /root/entrypoint.sh
-RUN chmod +x /root/entrypoint.sh \
+COPY startup.sh /root/startup.sh
+
+RUN chmod +x /root/startup.sh \
   && rm -rf /var/lib/apt/lists/* \
   && rm -rf /tmp/*
 
 EXPOSE 3000 8080
 
-ENTRYPOINT /root/entrypoint.sh
+CMD '/root/startup.sh'
