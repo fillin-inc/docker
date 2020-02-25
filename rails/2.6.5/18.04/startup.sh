@@ -28,7 +28,9 @@ fi
 cd ${WORK_DIR}
 
 if [ -e "bin/rails" ]; then
-  bin/rails db:setup
+  bin/rails db:create
+  bin/rails db:migrate
+  bin/rails db:seed
   bin/rails server -p ${RAILS_PORT} -b ${RAILS_IP}
 else
   echo "bin/rails が存在しないため bash を起動します"
