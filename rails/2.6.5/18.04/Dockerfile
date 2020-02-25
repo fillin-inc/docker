@@ -8,6 +8,7 @@ ENV RAILS_IP 0.0.0.0
 # Install ChromeDriver
 RUN apt-get update -qq \
   && apt-get upgrade -y \
+  && apt-get install -y vim less silversearcher-ag \
   && apt-get install -y curl zip libappindicator1 fonts-liberation fonts-ipaexfont \
   && CHROME_DRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE` \
   && cd /tmp \
