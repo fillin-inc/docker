@@ -10,6 +10,7 @@ RUN apt-get update -qq \
   && apt-get upgrade -y \
   && apt-get install -y vim less silversearcher-ag \
   && apt-get install -y curl gnupg zip libappindicator1 fonts-liberation fonts-ipaexfont \
+  && apt-get install -y curl imagemagick libvips \
   && CHROME_DRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE` \
   && cd /tmp \
   && curl -O https://chromedriver.storage.googleapis.com/${CHROME_DRIVER_VERSION}/chromedriver_linux64.zip \
